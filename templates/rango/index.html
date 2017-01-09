@@ -1,0 +1,27 @@
+{% extends 'rango/base.html' %}
+
+
+        {% block body_block %}
+
+            {% if user.is_authenticated %}
+            <h1>Rango says... hello {{ user.username }}!</h1>
+            {% else %}
+            <h1>Rango says... hello world!</h1>
+            {% endif %}
+
+
+        {% if list %}
+            <ul>
+                {% for obj in list %}
+
+                    <li><a href="{% url 'catagory' obj.slug  %}">{{ obj.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+            <hr>
+        {% endif %}
+
+            <a href="{% url 'add_catagory' %}">Add a New Category</a><br />
+
+        {% endblock %}

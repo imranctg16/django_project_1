@@ -1,0 +1,43 @@
+{% extends 'rango/base.html' %}
+
+{% block title %} {{ catagory_name }} {% endblock %}
+
+      {% block body_block %}
+
+          {% if catagory %}
+            <h1>{{ catagory_name }}</h1>
+                {% if pages %}
+                <ul>
+                    {% for page in pages %}
+                   <li>
+                            <a href="{% url 'goto' %}?page_id={{page.id}}">{{ page.title }}</a>
+                        {% if page.views > 1 %}
+                            ({{ page.views }} views)
+                            {% elif page.views == 1 %}
+                            ({{ page.views }} view)
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <strong>No pages currently in category.</strong>
+                {% endif %}
+
+                  {% if user.is_authenticated %}
+                     <a href="/rango/catagory/{{ catagory_name_slug }}/add_page/">Add a New page to the Category</a>
+
+                          <p>
+                                <strong id="like_count">{{ catagory.likes }}</strong> people like this category
+
+                                        <button id="likes" data-catid="{{catagory.id}}" class="btn btn-primary" type="button">
+                                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                                        Like
+                                        </button>
+
+                          </p>
+                  {% endif %}
+          {% else %}
+            The specified catagory {{ catagory_name}} does not exist!
+            {% endif %}
+
+      {% endblock %}
