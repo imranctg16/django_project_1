@@ -8,12 +8,9 @@
             {% else %}
             <h1>Rango says... hello world!</h1>
             {% endif %}
-
-
         {% if list %}
             <ul>
                 {% for obj in list %}
-
                     <li><a href="{% url 'catagory' obj.slug  %}">{{ obj.name }}</a></li>
                 {% endfor %}
             </ul>
@@ -23,5 +20,19 @@
         {% endif %}
 
             <a href="{% url 'add_catagory' %}">Add a New Category</a><br />
+
+            {% if pages %}
+            <ul>
+                {% for obj in pages %}
+                    <li>{{ obj.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no pages present.</strong>
+
+        {% endif %}
+
+
+
 
         {% endblock %}

@@ -1,6 +1,8 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User  # for using the USer one to one model
+
+
 class Catagory(models.Model):
     name=models.CharField(max_length=50,unique=True)
     views = models.IntegerField(default=0)

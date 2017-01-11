@@ -30,7 +30,6 @@ class PageForm(forms.ModelForm):
         #exclude = ('category',)
         #or specify the fields to include (i.e. not include the category field)
         fields = ('title', 'url', 'catagory')
-
     def clean(self):
         cleaned_data = self.cleaned_data
         url = cleaned_data.get('url')
@@ -40,9 +39,10 @@ class PageForm(forms.ModelForm):
             cleaned_data['url'] = url
         return cleaned_data
 
+
+
 class UserForm(forms.ModelForm):
     password=forms.CharField(widget=forms.PasswordInput()) #overwrited this attribute with the default to get the pass widget
-
     class Meta:
         model=User
         fields=('username','email','password')

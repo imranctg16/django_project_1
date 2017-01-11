@@ -11,15 +11,16 @@ def index(request):
     list = Catagory.objects.order_by('-likes')[:7]
     page_list = page.objects.order_by('-views')[:5]
     context_dict = {'list': list, 'pages': page_list}
+
+
+   #session code
     visits = request.session.get('visits')
     if not visits:
         visits = 1
     reset_last_visit_time = False
-
     last_visit = request.session.get('last_visit')
     if last_visit:
         last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
-
         if (datetime.now() - last_visit_time).seconds > 0:
             # ...reassign the value of the cookie to +1 of what it was before...
             visits = visits + 1
@@ -28,16 +29,15 @@ def index(request):
     else:
         # Cookie last_visit doesn't exist, so create it to the current date/time.
         reset_last_visit_time = True
-
     if reset_last_visit_time:
         request.session['last_visit'] = str(datetime.now())
         request.session['visits'] = visits
     context_dict['visits'] = visits
-
+    #session code end
 
     response = render(request,'rango/index.html', context_dict)
-
     return response
+
 
 def catagory(request, catagory_name_slug):
     # Create a context dictionary which we can pass to the template rendering engine.
